@@ -1,25 +1,24 @@
 package accounts;
 
-import java.util.HashMap;
-import java.util.Map;
+import dbservice.DbService;
+import entity.UserEntity;
 
 /**
  * @author Guskov Artem
  *         on 08.01.2016.
  */
 public class AccountService {
-    private final Map<String, UserProfile> loginToProfile;
 
-    public AccountService() {
-        loginToProfile = new HashMap<>();
-    }
+  private DbService dbService = new DbService();
 
-    public void addNewUser(UserProfile userProfile) {
-        loginToProfile.put(userProfile.getLogin(), userProfile);
-    }
 
-    public UserProfile getUserByLogin(String login) {
-        return loginToProfile.get(login);
-    }
+  public void addNewUser(UserProfile userProfile) {
+    dbService.addUser(userProfile.getLogin(), userProfile.getPass());
+  }
+
+  public UserProfile getUserByLogin(String login) {
+    UserEntity userEntity = dbService.getUser(login);
+    return new UserProfile(userEntity.getName(), userEntity.getPassword());
+  }
 
 }

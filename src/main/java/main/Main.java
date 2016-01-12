@@ -15,28 +15,28 @@ import java.util.logging.Logger;
  */
 public class Main {
 
-    public static Logger logger = Logger.getGlobal();
+  public static Logger logger = Logger.getGlobal();
 
-    public static void main(String[] args) {
+  public static void main(String[] args) {
 
-        AccountService accountService = new AccountService();
-        SignInServlet signInServlet = new SignInServlet(accountService);
-        SignUpServlet signUpServlet = new SignUpServlet(accountService);
+    AccountService accountService = new AccountService();
+    SignInServlet signInServlet = new SignInServlet(accountService);
+    SignUpServlet signUpServlet = new SignUpServlet(accountService);
 
-        ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-        context.addServlet(new ServletHolder(signUpServlet), "/signup");
-        context.addServlet(new ServletHolder(signInServlet), "/signin");
+    ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
+    context.addServlet(new ServletHolder(signUpServlet), "/signup");
+    context.addServlet(new ServletHolder(signInServlet), "/signin");
 
-        Server server = new Server(8080);
-        server.setHandler(context);
+    Server server = new Server(8080);
+    server.setHandler(context);
 
-        try {
-            server.join();
-            logger.info("Server started");
-            server.start();
-        } catch (Exception e) {
-            logger.warning("Try to start server. Exception: " + e);
-            e.printStackTrace();
-        }
+    try {
+      server.join();
+      logger.info("Server started");
+      server.start();
+    } catch (Exception e) {
+      logger.warning("Try to start server. Exception: " + e);
+      e.printStackTrace();
     }
+  }
 }

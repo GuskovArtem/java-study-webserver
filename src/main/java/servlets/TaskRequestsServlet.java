@@ -16,30 +16,32 @@ import java.util.Map;
  */
 public class TaskRequestsServlet extends HttpServlet {
 
-    public void doGet(HttpServletRequest request,
-                      HttpServletResponse response) throws ServletException, IOException {
+  public void doGet(HttpServletRequest request,
+                    HttpServletResponse response) throws ServletException, IOException
+  {
 
-        Map<String, Object> pageVariables = new HashMap<>();
-        String value = request.getParameter("key");
-        pageVariables.put("value", value == null ? "" : value);
+    Map<String, Object> pageVariables = new HashMap<>();
+    String value = request.getParameter("key");
+    pageVariables.put("value", value == null ? "" : value);
 
-        response.getWriter().println(PageGenerator.instance().getPage("page.html", pageVariables));
+    response.getWriter().println(PageGenerator.instance().getPage("page.html", pageVariables));
 
-        response.setContentType("text/html;charset=utf-8");
-        response.setStatus(HttpServletResponse.SC_OK);
+    response.setContentType("text/html;charset=utf-8");
+    response.setStatus(HttpServletResponse.SC_OK);
 
-    }
+  }
 
-    public void doPost(HttpServletRequest request,
-                       HttpServletResponse response) throws ServletException, IOException {
-        Map<String, Object> pageVariables = new HashMap<>();
-        String value = request.getParameter("key");
-        pageVariables.put("value", value == null ? "" : value);
+  public void doPost(HttpServletRequest request,
+                     HttpServletResponse response) throws ServletException, IOException
+  {
+    Map<String, Object> pageVariables = new HashMap<>();
+    String value = request.getParameter("key");
+    pageVariables.put("value", value == null ? "" : value);
 
-        response.setContentType("text/html;charset=utf-8");
+    response.setContentType("text/html;charset=utf-8");
 
-            response.setStatus(HttpServletResponse.SC_OK);
+    response.setStatus(HttpServletResponse.SC_OK);
 
-        response.getWriter().println(PageGenerator.instance().getPage("page.html", pageVariables));
-    }
+    response.getWriter().println(PageGenerator.instance().getPage("page.html", pageVariables));
+  }
 }

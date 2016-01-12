@@ -14,34 +14,30 @@ import java.io.IOException;
  *         on 08.01.2016.
  */
 public class SignUpServlet extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
+
+  private final AccountService accountService;
+
+  public SignUpServlet(AccountService accountService) {
+    this.accountService = accountService;
+  }
+
+  @Override
+  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+    String login = req.getParameter("login");
+    String password = req.getParameter("password");
+
+
+    if (login == null || password == null) {
+      resp.setContentType("text/html;charset=utf-8");
+      resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      return;
     }
 
-    private final AccountService accountService;
+    accountService.addNewUser(new UserProfile(login, password));
 
-    public SignUpServlet(AccountService accountService) {
-        this.accountService = accountService;
-    }
+    resp.setContentType("text/html;charset=utf-8");
+    resp.setStatus(HttpServletResponse.SC_OK);
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        String login = req.getParameter("login");
-        String password = req.getParameter("password");
-
-
-        if (login == null || password == null) {
-            resp.setContentType("text/html;charset=utf-8");
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return;
-        }
-
-        accountService.addNewUser(new UserProfile(login, password));
-
-        resp.setContentType("text/html;charset=utf-8");
-        resp.setStatus(HttpServletResponse.SC_OK);
-
-    }
+  }
 }
